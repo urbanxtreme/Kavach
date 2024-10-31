@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kavach - Emergency Response Platform</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-blue-600 text-white shadow-lg fixed w-full z-50">
+        <div class="container mx-auto px-6 py-3">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold">Kavach</span>
+                </div>
+                <div class="hidden md:flex items-center space-x-8">
+                    <a href="#features" class="hover:text-blue-200">Features</a>
+                    <a href="#map" class="hover:text-blue-200">Live Map</a>
+                    <a href="#resources" class="hover:text-blue-200">Resources</a>
+                    <a href="#support" class="hover:text-blue-200">Support</a>
+                    <a href="index.html" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg font-semibold text-white">
+                        Report Emergency
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <header class="pt-24 pb-16 bg-gradient-to-r from-blue-600 to-blue-800 text-white">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row items-center">
+                <div class="md:w-1/2 mb-8 md:mb-0">
+                    <h1 class="text-4xl md:text-5xl font-bold mb-6">
+                        Rapid Emergency Response Through Community Action
+                    </h1>
+                    <p class="text-xl mb-8">
+                        Report incidents, save lives, and support your community with Kavach's comprehensive emergency response platform.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="index.html" class="bg-red-500 hover:bg-red-600 px-8 py-3 rounded-lg font-semibold text-lg text-white inline-block">
+                            Report Emergency
+                        </a>
+                        <button class="bg-white text-blue-600 hover:bg-blue-50 px-8 py-3 rounded-lg font-semibold text-lg">
+                            Learn More
+                        </button>
+                    </div>
+                </div>
+                <div class="md:w-1/2 flex justify-end">
+                    <img src="/frontend/assets/emergencylast.jpg" alt="Emergency Response" class="rounded-lg shadow-xl">
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Features Section -->
+    <section id="features" class="py-16">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Key Features</h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Real-time Reporting -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="text-blue-600 text-4xl mb-4">
+                        <i class="fas fa-bolt"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Real-time Reporting</h3>
+                    <p class="text-gray-600">
+                        Quickly report accidents with location, descriptions, and photos for immediate response coordination.
+                    </p>
+                </div>
+                <!-- First Aid Guidance -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="text-blue-600 text-4xl mb-4">
+                        <i class="fas fa-kit-medical"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">First Aid Guidance</h3>
+                    <p class="text-gray-600">
+                        Access immediate first aid instructions and injury assessment guidance during emergencies.
+                    </p>
+                </div>
+                <!-- Resource Optimization -->
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <div class="text-blue-600 text-4xl mb-4">
+                        <i class="fas fa-chart-line"></i>
+                    </div>
+                    <h3 class="text-xl font-semibold mb-3">Resource Optimization</h3>
+                    <p class="text-gray-600">
+                        Smart allocation of emergency resources based on real-time incident analysis.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Live Map Section -->
+    <section id="map" class="py-16 bg-gray-100">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Live Emergency Map</h2>
+            <div class="bg-white p-4 rounded-lg shadow-lg">
+                <img src="/api/placeholder/1200/500" alt="Interactive Map" class="w-full rounded">
+            </div>
+        </div>
+    </section>
+
+    <!-- Resources & Training -->
+    <section id="resources" class="py-16">
+        <div class="container mx-auto px-6">
+            <h2 class="text-3xl font-bold text-center mb-12">Resources & Training</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">First Aid Training</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-play-circle text-blue-600 mr-3"></i>
+                            <span>Basic Life Support (BLS)</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-play-circle text-blue-600 mr-3"></i>
+                            <span>CPR Techniques</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-play-circle text-blue-600 mr-3"></i>
+                            <span>Emergency Response Basics</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md">
+                    <h3 class="text-xl font-semibold mb-4">Support Groups</h3>
+                    <div class="space-y-4">
+                        <div class="flex items-center">
+                            <i class="fas fa-users text-blue-600 mr-3"></i>
+                            <span>Trauma Support Community</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-users text-blue-600 mr-3"></i>
+                            <span>Family Support Network</span>
+                        </div>
+                        <div class="flex items-center">
+                            <i class="fas fa-users text-blue-600 mr-3"></i>
+                            <span>First Responder Connect</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section class="py-16 bg-blue-600 text-white">
+        <div class="container mx-auto px-6 text-center">
+            <h2 class="text-3xl font-bold mb-6">Ready to Make a Difference?</h2>
+            <p class="text-xl mb-8">Join our community of emergency responders and concerned citizens.</p>
+            <div class="flex justify-center space-x-4">
+                <button class="bg-white text-blue-600 hover:bg-blue-50 px-8 py-3 rounded-lg font-semibold">
+                    Sign Up Now
+                </button>
+                <button class="border-2 border-white hover:bg-blue-700 px-8 py-3 rounded-lg font-semibold">
+                    Learn More
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4">Kavach</h3>
+                    <p class="text-gray-400">Emergency response platform powered by community action.</p>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">About Us</a></li>
+                        <li><a href="#" class="hover:text-white">Features</a></li>
+                        <li><a href="#" class="hover:text-white">Resources</a></li>
+                        <li><a href="#" class="hover:text-white">Support</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Resources</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li><a href="#" class="hover:text-white">Training Modules</a></li>
+                        <li><a href="#" class="hover:text-white">First Aid Guides</a></li>
+                        <li><a href="#" class="hover:text-white">Community Support</a></li>
+                        <li><a href="#" class="hover:text-white">FAQs</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact</h4>
+                    <ul class="space-y-2 text-gray-400">
+                        <li>Emergency: 112</li>
+                        <li>Support: support@kavach.com</li>
+                        <li>Phone: (555) 123-4567</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-700 text-center text-gray-400">
+                <p>&copy; 2024 Kavach. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
