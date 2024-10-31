@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kavach - Emergency Reporting</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        header {
+            background-color: #2c3e50;
+            color: #ecf0f1;
+            padding: 10px 20px;
+            text-align: center;
+        }
+        h1 {
+            margin: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 5px;
+        }
+        input, textarea {
+            margin-bottom: 15px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        button {
+            padding: 10px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #2980b9;
+        }
+        .reports {
+            margin-top: 20px;
+        }
+        .report {
+            padding: 10px;
+            border: 1px solid #3498db;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>Kavach Emergency Reporting</h1>
+</header>
+
+<div class="container">
+    <h2>Report an Incident</h2>
+    <form id="incident-form">
+        <label for="location">Location:</label>
+        <input type="text" id="location" required>
+
+        <label for="description">Description:</label>
+        <textarea id="description" rows="4" required></textarea>
+
+        <label for="severity_level">Severity Level (1-5):</label>
+        <input type="number" id="severity_level" min="1" max="5" required>
+
+        <label for="image_url">Image URL:</label>
+        <input type="text" id="image_url">
+
+        <button type="submit">Report Incident</button>
+    </form>
+
+    <div class="reports">
+        <h2>Reported Incidents</h2>
+        <div id="incident-list"></div>
+    </div>
+</div>
+
+<script>
+    // Function to report an incident
+    document.getElementById('incident-form').addEventListener('submit', function (event) {
+        event.preventDefault(); // Prevent default form submission
+
+        const location = document.getElementById('location').value;
+        const description = document.getElementById('description').value;
+        const severity_level = document.getElementById('severity_level').value;
+        const image_url = document.getElementById('image_url').value;
+
+        // Sending data to the server
+        fetch('http://127.0.0.1:5000/api/report-incident', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                location: location,
+                description: description,
+                severity_level: parseInt(severity_level),
+                image_url: image_url
+            })
+        })
+        .then(response => response.json())
+        .then(data => {
+            alert(data.message);
+            fetchReports(); // Refresh the reported incidents list
+            document.getElementById('incident-form').reset(); // Reset the form
+        })
+        .catch((error) => {
+            console.error('Error:', error);
+        });
+    });
+
+    // Function to fetch reported incidents
+    function fetchReports() {
+        fetch('http://127.0.0.1:5000/api/get-reports')
+        .then(response => response.json())
+        .then(data => {
+            const incidentList = document.getElementById('incident-list');
+            incidentList.innerHTML = ''; // Clear previous reports
+            data.reports.forEach(report => {
+                const div = document.createElement('div');
+                div.className = 'report';
+                div.innerHTML = `<strong>ID:</strong> ${report.id} <br>
+                                 <strong>Location:</strong> ${report.location} <br>
+                                 <strong>Description:</strong> ${report.description} <br>
+                                 <strong>Severity Level:</strong> ${report.severity_level} <br>
+                                 <strong>Image URL:</strong> <a href="${report.image_url}" target="_blank">${report.image_url}</a>`;
+                incidentList.appendChild(div);
+            });
+        })
+        .catch((error) => {
+            console.error('Error fetching reports:', error);
+        });
+    }
+
+    // Fetch reports on page load
+    window.onload = fetchReports;
+</script>
+
+</body>
+</html>
