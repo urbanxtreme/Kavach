@@ -1,61 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile - Kavach</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <title>User Profile</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            width: 300px;
+            text-align: center;
+        }
+        h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .input-field {
+            margin-bottom: 15px;
+            width: 100%;
+        }
+        .input-field input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        .btn {
+            background-color: #5995fd;
+            border: none;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+            width: 100%;
+        }
+        .btn:hover {
+            background-color: #4d84e2;
+        }
+        .message {
+            color: #28a745;
+            margin-top: 10px;
+        }
+    </style>
 </head>
+<body>
 
-<body class="bg-gray-50">
-    <!-- Navigation -->
-    <nav class="bg-blue-600 text-white shadow-lg fixed w-full z-50">
-        <div class="container mx-auto px-6 py-3">
-            <div class="flex items-center justify-between">
-                <div class="flex items-center">
-                    <span class="text-2xl font-bold">Kavach</span>
-                </div>
-                <div class="hidden md:flex items-center space-x-8">
-                    <a href="homepage.html" class="hover:text-blue-200">Home</a>
-                    <a href="#features" class="hover:text-blue-200">Features</a>
-                    <a href="#map" class="hover:text-blue-200">Live Map</a>
-                    <a href="#resources" class="hover:text-blue-200">Resources</a>
-                    <a href="#support" class="hover:text-blue-200">Support</a>
-                    <a href="index.html" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg font-semibold text-white">
-                        Report Emergency
-                    </a>
-                </div>
-            </div>
-        </div>
-    </nav>
-
-    <!-- Profile Section -->
-    <div class="container mx-auto mt-24 px-6">
-        <h2 class="text-3xl font-bold text-center mb-6">User Profile</h2>
-        <div class="bg-white p-6 rounded-lg shadow-md">
-            <div class="flex items-center mb-4">
-                <img src="path/to/default-profile.png" alt="User Profile" class="w-32 h-32 rounded-full border-2 border-blue-600">
-                <div class="ml-6">
-                    <h3 class="text-xl font-semibold">Username</h3>
-                    <p class="text-gray-600">Email: user@example.com</p>
-                    <p class="text-gray-600">Phone: (555) 123-4567</p>
-                    <p class="text-gray-600">Accidents Reported: 3</p>
-                </div>
-            </div>
-            <div>
-                <h4 class="text-lg font-semibold mb-2">Additional Details</h4>
-                <ul class="list-disc ml-5">
-                    <li>Joined: January 2024</li>
-                    <li>Location: City, Country</li>
-                    <li>Last Report: 12/10/2024</li>
-                </ul>
-            </div>
-            <button class="mt-4 bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700">Edit Profile</button>
-            <button class="mt-2 bg-red-600 text-white px-4 py-2 rounded-lg hover:bg-red-700">Logout</button>
-        </div>
+<div class="container">
+    <h2>User Profile</h2>
+    <div class="input-field">
+        <input type="text" id="username" placeholder="Username" readonly>
     </div>
-</body>
+    <div class="input-field">
+        <input type="password" id="password" placeholder="Password" readonly>
+    </div>
+    <button class="btn" id="editBtn" onclick="editProfile()">Edit</button>
+    <button class="btn" id="saveBtn" style="display: none;" onclick="saveProfile()">Save</button>
+    <div class="message" id="message"></div>
+</div>
 
+<script>
+    // Assume we have a logged-in user stored in local storage or session
+    const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
+
+    // Check if user is logged in
+    if (loggedInUser) {
+        document.getElementById('username').value = loggedInUser.username;
+        document.getElementById('password').value = loggedInUser.password;
+    } else {
+        alert("No user is logged in!");
+        window.location.href = "index.html"; // Redirect to login page if not logged in
+    }
+
+    function editProfile() {
+        document.getElementById('username').removeAttribute('readonly');
+        document.getElementById('password').removeAttribute('readonly');
+        document.getElementById('editBtn').style.display = 'none';
+        document.getElementById('saveBtn').style.display = 'block';
+    }
+
+    function saveProfile() {
+        const newUsername = document.getElementById('username').value;
+        const newPassword = document.getElementById('password').value;
+
+        // Save updated user information
+        loggedInUser.username = newUsername;
+        loggedInUser.password = newPassword;
+
+        // Update the session storage
+        sessionStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
+
+        // Provide feedback to the user
+        document.getElementById('message').textContent = "Profile updated successfully!";
+        document.getElementById('message').style.color = "#28a745";
+
+        // Set fields back to readonly
+        document.getElementById('username').setAttribute('readonly', true);
+        document.getElementById('password').setAttribute('readonly', true);
+        document.getElementById('editBtn').style.display = 'block';
+        document.getElementById('saveBtn').style.display = 'none';
+    }
+</script>
+</body>
 </html>

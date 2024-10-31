@@ -186,8 +186,10 @@
         <label for="severity_level">Severity Level (1-5):</label>
         <input type="number" id="severity_level" min="1" max="5" required>
 
-        <label for="image_url">Image URL:</label>
-        <input type="text" id="image_url" placeholder="Enter image URL (optional)">
+        <label for="image_upload">Upload Image:</label>
+        <input type="file" id="image_upload" accept="image/*" onchange="previewImage()">
+
+        <div id="image_preview" style="margin-top: 10px;"></div>
 
         <button type="submit">🚨 Report Incident</button>
     </form>
@@ -244,7 +246,10 @@
         const location = document.getElementById("location").value;
         const description = document.getElementById("description").value;
         const severity = document.getElementById("severity_level").value;
-        const imageUrl = document.getElementById("image_url").value;
+        const imageFile = document.getElementById("image_upload").files[0];
+
+        // Create a URL for the uploaded image
+        const imageUrl = imageFile ? URL.createObjectURL(imageFile) : '';
 
         // Create an incident report object
         const incident = {
@@ -281,6 +286,21 @@
             `;
             incidentList.appendChild(reportDiv);
         });
+    }
+
+    function previewImage() {
+        const file = document.getElementById("image_upload").files[0];
+        const previewContainer = document.getElementById("image_preview");
+        previewContainer.innerHTML = ''; // Clear previous previews
+
+        if (file) {
+            const img = document.createElement("img");
+            img.src = URL.createObjectURL(file);
+            img.style.maxWidth = "100%";
+            img.style.borderRadius = "6px";
+            img.style.marginTop = "5px";
+            previewContainer.appendChild(img);
+        }
     }
 
     window.onload = fetchReports;

@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn More - Kavach</title>
+    <!-- Include Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" integrity="sha384-k6RqeWeci5ZR/Lv4MR0sA0FfDOMVJ21Wb/sQlN8F5Wn1uZ+k1eG6M6C3UB5S3gF" crossorigin="anonymous">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+        }
+
+        header {
+            background-color: #007BFF;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            position: relative;
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 2.5rem;
+        }
+
+        .back-button {
+            background-color: white;
+            color: #007BFF;
+            border: 2px solid #007BFF;
+            border-radius: 5px;
+            padding: 0.5rem 1rem;
+            text-decoration: none;
+            font-size: 1rem;
+            margin-top: 10px;
+            display: inline-block;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #007BFF;
+            color: white;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            animation: fadeIn 1s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        h2 {
+            color: #007BFF;
+            margin-top: 1.5rem;
+            display: flex;
+            align-items: center;
+        }
+
+        h2 i {
+            margin-right: 0.5rem;
+            color: #007BFF;
+        }
+
+        p {
+            line-height: 1.6;
+            margin: 0.5rem 0 1.5rem 0;
+        }
+
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        li {
+            background: #e9ecef;
+            margin: 0.5rem 0;
+            padding: 0.5rem;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            transition: background 0.3s;
+        }
+
+        li i {
+            margin-right: 0.5rem;
+            color: #007BFF;
+        }
+
+        li:hover {
+            background: #007BFF;
+            color: white;
+        }
+
+        footer {
+            text-align: center;
+            padding: 1rem;
+            background-color: #007BFF;
+            color: white;
+            position: relative;
+            bottom: 0;
+            width: 100%;
+            margin-top: 2rem;
+        }
+
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            h2 {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Kavach: Your Emergency Reporting Solution</h1>
+        <a href="homepage.html" class="back-button">Back to Home</a>
+    </header>
+
+    <div class="container">
+        <h2><i class="fas fa-exclamation-triangle"></i>Problem Statement</h2>
+        <p>
+            In emergency situations like accidents or natural disasters, timely and accurate information is crucial for effective response. Emergency responders often face significant challenges due to delays in receiving essential details about incidents, including exact location, severity, and number of people involved. These delays can slow emergency services' response, potentially leading to preventable loss of life, prolonged injuries, and increased trauma for those affected.
+        </p>
+
+        <h2><i class="fas fa-solution"></i>Solution</h2>
+        <p>
+            Kavach is a crowdsourced emergency reporting application designed to bridge the gap between real-time incident reporting and swift emergency response. The app allows users to quickly report accidents by submitting key details such as location, a description of the event, and photos. This functionality empowers users to act as real-time informants to emergency services, thereby facilitating a more effective response.
+        </p>
+
+        <h2><i class="fas fa-star"></i>Key Features of Kavach</h2>
+        <ul>
+            <li><i class="fas fa-ambulance"></i>Emergency Services Dispatch: Automatically forwards real-time reports to local authorities.</li>
+            <li><i class="fas fa-file-alt"></i>Accident Reporting & Documentation: Users can report accidents effortlessly with crucial information.</li>
+            <li><i class="fas fa-first-aid"></i>Injury Assessment & First Aid Guidance: Provides basic first aid tools and advice for immediate action.</li>
+            <li><i class="fas fa-chart-line"></i>Resource Allocation & Optimization: Analyzes reported incidents to optimize emergency resource deployment.</li>
+            <li><i class="fas fa-heart"></i>Victim & Family Support: Offers emotional support and resources to accident victims and their families.</li>
+            <li><i class="fas fa-map-marker-alt"></i>Interactive Map: Displays reported incidents in real-time for situational awareness.</li>
+            <li><i class="fas fa-analytics"></i>Analytics Dashboard: Provides local authorities with trends in incidents for better resource allocation.</li>
+            <li><i class="fas fa-users"></i>Community Engagement & Training: Includes first aid training modules and community support groups.</li>
+            <li><i class="fas fa-phone-alt"></i>Emergency Contact Integration: Users can notify emergency contacts automatically during incidents.</li>
+            <li><i class="fas fa-user-md"></i>Health Profile Sharing: Allows users to create health profiles for emergency responders.</li>
+        </ul>
+    </div>
+
+    <footer>
+        <p>&copy; 2024 Kavach. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // Add any interactive JavaScript functionalities if needed
+        console.log("Kavach Learn More Page Loaded");
+    </script>
+</body>
+
+</html>

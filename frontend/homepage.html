@@ -7,6 +7,22 @@
     <title>Kavach - Emergency Response Platform</title>
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script>
+        // Function to load the profile image from localStorage
+        function loadProfileImage() {
+            const storedImage = localStorage.getItem('profileImage');
+            const profileImageElement = document.getElementById('profileImage');
+            if (storedImage) {
+                profileImageElement.src = storedImage;
+            } else {
+                // Set a default image if no profile image is stored
+                profileImageElement.src = 'path/to/default-profile.png'; // Update this path as needed
+            }
+        }
+
+        // Call the function on page load
+        window.onload = loadProfileImage;
+    </script>
 </head>
 
 <body class="bg-gray-50">
@@ -30,7 +46,7 @@
                 <div class="relative profile ml-6">
                     <div class="flex items-center cursor-pointer">
                         <a href="profile.html">
-                            <img src="path/to/default-profile.png" alt="User Profile" class="w-8 h-8 rounded-full border-2 border-white">
+                            <img id="profileImage" src="path/to/default-profile.png" alt="User Profile" class="w-8 h-8 rounded-full border-2 border-white">
                         </a>
                         <span class="ml-2">Username</span>
                     </div>
@@ -54,9 +70,9 @@
                         <a href="index.html" class="bg-red-500 hover:bg-red-600 px-8 py-3 rounded-lg font-semibold text-lg text-white inline-block">
                             Report Emergency
                         </a>
-                        <button class="bg-white text-blue-600 hover:bg-blue-50 px-8 py-3 rounded-lg font-semibold text-lg">
+                        <a href="learnmore.html" class="bg-white text-blue-600 hover:bg-blue-50 px-8 py-3 rounded-lg font-semibold text-lg inline-block text-center">
                             Learn More
-                        </button>
+                        </a>
                     </div>
                 </div>
                 <div class="md:w-1/2 flex justify-end">
@@ -72,34 +88,43 @@
             <h2 class="text-3xl font-bold text-center mb-12">Key Features</h2>
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Real-time Reporting -->
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <div class="text-blue-600 text-4xl mb-4">
+                <div class="bg-white p-6 rounded-lg shadow-md transition-transform duration-300 ease-in-out hover:scale-105 hover:bg-blue-100">
+                    <div class="text-blue-600 text-4xl mb-4 animate-pulse">
                         <i class="fas fa-bolt"></i>
                     </div>
                     <h3 class="text-xl font-semibold mb-3">Real-time Reporting</h3>
                     <p class="text-gray-600">
                         Quickly report accidents with location, descriptions, and photos for immediate response coordination.
                     </p>
+                    <button class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-transform transform hover:scale-110 duration-300">
+                        Learn More
+                    </button>
                 </div>
                 <!-- First Aid Guidance -->
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <div class="text-blue-600 text-4xl mb-4">
+                <div class="bg-white p-6 rounded-lg shadow-md transition-transform duration-300 ease-in-out hover:scale-105 hover:bg-blue-100">
+                    <div class="text-blue-600 text-4xl mb-4 animate-bounce">
                         <i class="fas fa-kit-medical"></i>
                     </div>
                     <h3 class="text-xl font-semibold mb-3">First Aid Guidance</h3>
                     <p class="text-gray-600">
                         Access immediate first aid instructions and injury assessment guidance during emergencies.
                     </p>
+                    <button class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition-transform transform hover:scale-110 duration-300">
+                        Get Guidance
+                    </button>
                 </div>
                 <!-- Resource Optimization -->
-                <div class="bg-white p-6 rounded-lg shadow-md">
-                    <div class="text-blue-600 text-4xl mb-4">
+                <div class="bg-white p-6 rounded-lg shadow-md transform transition-transform duration-300 hover:-translate-y-2 hover:bg-blue-100 hover:shadow-lg">
+                    <div class="text-blue-600 text-4xl mb-4 transition duration-300 ease-in-out hover:shadow-blue-400 hover:shadow-md hover:animate-pulse">
                         <i class="fas fa-chart-line"></i>
                     </div>
                     <h3 class="text-xl font-semibold mb-3">Resource Optimization</h3>
                     <p class="text-gray-600">
                         Smart allocation of emergency resources based on real-time incident analysis.
                     </p>
+                    <button class="mt-4 bg-blue-500 hover:bg-blue-600 text-white px-4 py-2 rounded-lg transition duration-300 transform hover:scale-105">
+                        Optimize Now
+                    </button>
                 </div>
             </div>
         </div>
@@ -146,11 +171,11 @@
                         </div>
                         <div class="flex items-center">
                             <i class="fas fa-users text-blue-600 mr-3"></i>
-                            <span>Online Counseling</span>
+                            <span>Online Forums</span>
                         </div>
                         <div class="flex items-center">
                             <i class="fas fa-users text-blue-600 mr-3"></i>
-                            <span>Training Workshops</span>
+                            <span>Resource Sharing</span>
                         </div>
                     </div>
                 </div>
@@ -158,43 +183,45 @@
         </div>
     </section>
 
+
+
     <!-- Footer -->
-    <!-- Footer -->
-    <footer class="bg-gray-800 text-white py-12">
+    <footer class="bg-blue-600 text-white py-12">
         <div class="container mx-auto px-6">
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
                 <div>
-                    <h3 class="text-xl font-semibold mb-4">Kavach</h3>
-                    <p class="text-gray-400">Emergency response platform powered by community action.</p>
+                    <h3 class="text-xl font-semibold mb-4">About Kavach</h3>
+                    <p class="text-gray-200">Empowering communities to respond effectively to emergencies with real-time solutions.</p>
                 </div>
                 <div>
-                    <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="#features" class="hover:text-white">About Us</a></li>
-                        <li><a href="#features" class="hover:text-white">Features</a></li>
-                        <li><a href="#resources" class="hover:text-white">Resources</a></li>
-                        <li><a href="#support" class="hover:text-white">Support</a></li>
+                    <h3 class="text-xl font-semibold mb-4">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#features" class="hover:text-blue-300">Features</a></li>
+                        <li><a href="#map" class="hover:text-blue-300">Live Map</a></li>
+                        <li><a href="#resources" class="hover:text-blue-300">Resources</a></li>
+                        <li><a href="#support" class="hover:text-blue-300">Support</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-lg font-semibold mb-4">Resources</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li><a href="#" class="hover:text-white">Training Modules</a></li>
-                        <li><a href="#" class="hover:text-white">First Aid Guides</a></li>
-                        <li><a href="#" class="hover:text-white">Community Support</a></li>
-                        <li><a href="#" class="hover:text-white">FAQs</a></li>
+                    <h3 class="text-xl font-semibold mb-4">Get Support</h3>
+                    <ul class="space-y-2">
+                        <li><a href="faq.html" class="hover:text-blue-300">FAQ</a></li>
+                        <li><a href="contact.html" class="hover:text-blue-300">Contact Support</a></li>
+                        <li><a href="privacy.html" class="hover:text-blue-300">Privacy Policy</a></li>
+                        <li><a href="terms.html" class="hover:text-blue-300">Terms of Service</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h4 class="text-lg font-semibold mb-4">Contact</h4>
-                    <ul class="space-y-2 text-gray-400">
-                        <li>Emergency: 112</li>
-                        <li>Support: <a href="mailto:support@kavach.com" class="hover:text-white">support@kavach.com</a></li>
-                        <li>Phone: (555) 123-4567</li>
-                    </ul>
+                    <h3 class="text-xl font-semibold mb-4">Follow Us</h3>
+                    <div class="flex space-x-4">
+                        <a href="#" class="hover:text-blue-300"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="hover:text-blue-300"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="hover:text-blue-300"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="hover:text-blue-300"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
                 </div>
             </div>
-            <div class="mt-8 pt-8 border-t border-gray-700 text-center text-gray-400">
+            <div class="mt-8 text-center">
                 <p>&copy; 2024 Kavach. All rights reserved.</p>
             </div>
         </div>
