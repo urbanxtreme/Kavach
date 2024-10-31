@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Map of India with Leaflet.js</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        /* Style for the map container */
+        #map {
+            height: 80vh; /* Full height of the viewport */
+            width: 100%; /* Full width */
+        }
+
+        /* Style for the input container */
+        #input-container {
+            position: absolute;
+            top: 20px;
+            right: 30px; /* Adjusted to the right side of the screen */
+            z-index: 1000; /* Ensure it stays above the map */
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        /* Basic styling for the marker popups */
+        .popup {
+            font-size: 14px;
+            color: #333;
+        }
+
+        /* Style for the button */
+        #zoom-button {
+            margin-left: 10px; /* Space between input box and button */
+        }
+
+        /* Style for the submit button */
+        #submit-button {
+            display: none; /* Initially hidden */
+            margin-top: 10px; /* Space above the button */
+            background-color: #3498db; /* Button color */
+            color: white; /* Text color */
+            border: none; /* No border */
+            border-radius: 5px; /* Rounded corners */
+            padding: 8px 15px; /* Padding */
+            cursor: pointer; /* Pointer cursor on hover */
+        }
+
+        #submit-button:hover {
+            background-color: #2980b9; /* Darker on hover */
+        }
+    </style>
+</head>
+<body>
+
+<div id="input-container">
+    <input type="text" id="location" placeholder="Enter state name" />
+    <button id="zoom-button">Zoom to State</button>
+    <button id="submit-button">Submit Location</button>
+</div>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    // Initialize the map and set the view to India
+    const map = L.map('map').setView([20.5937, 78.9629], 5); // Center on India
+
+    // Set up the OpenStreetMap tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Initialize variable for the default marker
+    let defaultMarker = null;
+
+    // Function to zoom into the state
+    function zoomToState() {
+        const location = document.getElementById('location').value;
+
+        if (location) {
+            // Fetch the coordinates for the entered state using Nominatim
+            fetch(`https://nominatim.openstreetmap.org/search?city=${encodeURIComponent(location)}&country=India&format=json`)
+                .then(response => response.json())
+                .then(data => {
+                    if (data && data.length > 0) {
+                        const lat = data[0].lat;
+                        const lng = data[0].lon;
+
+                        // Set the map view to the new coordinates
+                        map.setView([lat, lng], 10); // Increased zoom level for a more focused view
+
+                        // Create a default marker at the state location
+                        if (defaultMarker) {
+                            map.removeLayer(defaultMarker); // Remove the existing marker if it exists
+                        }
+                        defaultMarker = L.marker([lat, lng]).addTo(map); // Default Leaflet marker
+                        defaultMarker.bindPopup(`<div class="popup">Location: ${location}<br>Lat: ${lat}<br>Lng: ${lng}</div>`).openPopup();
+                    } else {
+                        alert('Location not found. Please check your input.');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching location:', error);
+                    alert('Error fetching location. Please try again later.');
+                });
+        } else {
+            alert('Please enter a state name.');
+        }
+    }
+
+    // Add click event listener to the button
+    document.getElementById('zoom-button').addEventListener('click', zoomToState);
+
+    // Function to add a default marker at the clicked location
+    function addDefaultMarker(e) {
+        const lat = e.latlng.lat;
+        const lng = e.latlng.lng;
+
+        // If there's already a marker, remove it before adding a new one
+        if (defaultMarker) {
+            map.removeLayer(defaultMarker);
+        }
+
+        // Create a default marker at the clicked location
+        defaultMarker = L.marker([lat, lng]).addTo(map);
+
+        // Bind a popup to the marker
+        defaultMarker.bindPopup(`<div class="popup">Marker placed here<br>Lat: ${lat.toFixed(4)}<br>Lng: ${lng.toFixed(4)}</div>`).openPopup();
+
+        // Show the submit button
+        document.getElementById('submit-button').style.display = 'block';
+    }
+
+    // Add click event listener to the map for placing markers
+    map.on('click', addDefaultMarker);
+
+    // Function to handle submit action
+    function handleSubmit() {
+        if (defaultMarker) {
+            const lat = defaultMarker.getLatLng().lat;
+            const lng = defaultMarker.getLatLng().lng;
+            const location = document.getElementById('location').value;
+
+            // Print the location data in the console
+            console.log(`Submitted Location: ${location}, Latitude: ${lat}, Longitude: ${lng}`);
+
+            // Optionally, you can reset the marker and hide the submit button
+            map.removeLayer(defaultMarker);
+            defaultMarker = null;
+            document.getElementById('submit-button').style.display = 'none';
+            document.getElementById('location').value = ''; // Clear the input
+        } else {
+            alert('Please place a marker before submitting.');
+        }
+    }
+
+    // Add click event listener to the submit button
+    document.getElementById('submit-button').addEventListener('click', handleSubmit);
+</script>
+
+</body>
+</html>

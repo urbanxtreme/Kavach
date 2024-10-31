@@ -2,9 +2,53 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Map of India with Leaflet.js</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <style>
+        /* Style for the map container */
+        #map {
+            height: 100vh; /* Full height of the viewport */
+            width: 100%; /* Full width */
+        }
+        /* Basic styling for the marker popups */
+        .popup {
+            font-size: 14px;
+            color: #333;
+        }
+    </style>
 </head>
 <body>
+
+<div id="map"></div>
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script>
+    // Initialize the map and set the view to India
+    const map = L.map('map').setView([20.5937, 78.9629], 5); // Center on India
+
+    // Set up the OpenStreetMap tile layer
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        attribution: '© OpenStreetMap contributors'
+    }).addTo(map);
+
+    // Function to add a marker
+    function addMarker(e) {
+        const lat = e.latlng.lat;
+        const lng = e.latlng.lng;
+
+        // Create a marker at the clicked location
+        const marker = L.marker([lat, lng]).addTo(map);
+
+        // Bind a popup to the marker
+        marker.bindPopup(`<div class="popup">Marker at <br>Lat: ${lat.toFixed(4)} <br>Lng: ${lng.toFixed(4)}</div>`)
+              .openPopup();
+    }
+
+    // Add a click event listener to the map
+    map.on('click', addMarker);
+</script>
 
 </body>
 </html>

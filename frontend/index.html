@@ -5,61 +5,164 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Kavach - Emergency Reporting</title>
     <style>
+        /* Global Styles */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            background-color: #f4f4f4;
+            background: linear-gradient(to right, #f0f0f5, #e6e9f0);
+            color: #34495e;
         }
+
         header {
-            background-color: #2c3e50;
+            background: linear-gradient(135deg, #2c3e50, #4a69bd);
             color: #ecf0f1;
-            padding: 10px 20px;
+            padding: 20px;
             text-align: center;
+            position: relative;
+            font-size: 1.2em;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
+
         h1 {
             margin: 0;
+            animation: fadeIn 1s ease-in-out;
         }
+
         .container {
             max-width: 600px;
             margin: 20px auto;
             padding: 20px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
         }
+
+        .container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+        }
+
         form {
             display: flex;
             flex-direction: column;
+            animation: slideIn 1s ease-in-out;
         }
+
         label {
             margin-bottom: 5px;
+            font-weight: bold;
+            color: #2c3e50;
         }
+
         input, textarea {
             margin-bottom: 15px;
-            padding: 10px;
+            padding: 12px;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            border-radius: 6px;
+            outline: none;
+            transition: all 0.3s;
         }
+
+        input:focus, textarea:focus {
+            border-color: #3498db;
+            box-shadow: 0 0 5px rgba(52, 152, 219, 0.3);
+        }
+
         button {
-            padding: 10px;
+            padding: 12px;
             background-color: #3498db;
-            color: white;
+            color: #ffffff;
+            font-weight: bold;
             border: none;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
+            transition: background-color 0.3s;
+            font-size: 1em;
         }
+
         button:hover {
             background-color: #2980b9;
         }
+
         .reports {
-            margin-top: 20px;
+            margin-top: 30px;
+            text-align: center;
         }
+
         .report {
-            padding: 10px;
+            padding: 15px;
+            background: #e8f4fa;
             border: 1px solid #3498db;
-            border-radius: 4px;
-            margin-bottom: 10px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            animation: fadeIn 0.5s ease-in;
+            color: #34495e;
+            transition: transform 0.3s ease;
+        }
+
+        .report:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .autocomplete-suggestions {
+            position: absolute;
+            background: white;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            max-height: 150px;
+            overflow-y: auto;
+            z-index: 1000;
+            width: 90%;
+            margin-top: 5px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, transform 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .autocomplete-suggestions.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .autocomplete-suggestions div {
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        .autocomplete-suggestions div:hover {
+            background-color: #f0f0f5;
+        }
+
+        .back-button {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 15px;
+            font-size: 0.9em;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .back-button:hover {
+            background-color: #c0392b;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(20px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
         }
     </style>
 </head>
@@ -67,92 +170,120 @@
 
 <header>
     <h1>Kavach Emergency Reporting</h1>
+    <button class="back-button" onclick="window.location.href='homepage.html'">⬅️ Back to Homepage</button>
 </header>
 
 <div class="container">
-    <h2>Report an Incident</h2>
+    <h2 style="text-align:center; color:#3498db;">Report an Incident</h2>
     <form id="incident-form">
         <label for="location">Location:</label>
-        <input type="text" id="location" required>
+        <input type="text" id="location" placeholder="Enter location" required autocomplete="off">
+        <div id="autocomplete-suggestions" class="autocomplete-suggestions"></div>
 
         <label for="description">Description:</label>
-        <textarea id="description" rows="4" required></textarea>
+        <textarea id="description" rows="4" placeholder="Describe the incident" required></textarea>
 
         <label for="severity_level">Severity Level (1-5):</label>
         <input type="number" id="severity_level" min="1" max="5" required>
 
         <label for="image_url">Image URL:</label>
-        <input type="text" id="image_url">
+        <input type="text" id="image_url" placeholder="Enter image URL (optional)">
 
-        <button type="submit">Report Incident</button>
+        <button type="submit">🚨 Report Incident</button>
     </form>
 
     <div class="reports">
-        <h2>Reported Incidents</h2>
+        <h2 style="color:#34495e;">Reported Incidents</h2>
         <div id="incident-list"></div>
     </div>
 </div>
 
 <script>
-    // Function to report an incident
-    document.getElementById('incident-form').addEventListener('submit', function (event) {
-        event.preventDefault(); // Prevent default form submission
+    const API_KEY = "0ff16f978a9f4216ac0d1416480ec047";  // Replace with your OpenCage API key
+    const incidentReports = []; // Array to store reported incidents
 
-        const location = document.getElementById('location').value;
-        const description = document.getElementById('description').value;
-        const severity_level = document.getElementById('severity_level').value;
-        const image_url = document.getElementById('image_url').value;
-
-        // Sending data to the server
-        fetch('http://127.0.0.1:5000/api/report-incident', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-                location: location,
-                description: description,
-                severity_level: parseInt(severity_level),
-                image_url: image_url
-            })
-        })
-        .then(response => response.json())
-        .then(data => {
-            alert(data.message);
-            fetchReports(); // Refresh the reported incidents list
-            document.getElementById('incident-form').reset(); // Reset the form
-        })
-        .catch((error) => {
-            console.error('Error:', error);
-        });
+    document.getElementById("location").addEventListener("input", function () {
+        const query = this.value;
+        if (query.length > 2) {
+            fetch(`https://api.opencagedata.com/geocode/v1/json?q=${query}&key=${API_KEY}&limit=5`)
+                .then(response => response.json())
+                .then(data => {
+                    const suggestions = data.results.map(result => result.formatted);
+                    displaySuggestions(suggestions);
+                })
+                .catch(error => console.error("Error fetching suggestions:", error));
+        }
     });
 
-    // Function to fetch reported incidents
-    function fetchReports() {
-        fetch('http://127.0.0.1:5000/api/get-reports')
-        .then(response => response.json())
-        .then(data => {
-            const incidentList = document.getElementById('incident-list');
-            incidentList.innerHTML = ''; // Clear previous reports
-            data.reports.forEach(report => {
-                const div = document.createElement('div');
-                div.className = 'report';
-                div.innerHTML = `<strong>ID:</strong> ${report.id} <br>
-                                 <strong>Location:</strong> ${report.location} <br>
-                                 <strong>Description:</strong> ${report.description} <br>
-                                 <strong>Severity Level:</strong> ${report.severity_level} <br>
-                                 <strong>Image URL:</strong> <a href="${report.image_url}" target="_blank">${report.image_url}</a>`;
-                incidentList.appendChild(div);
+    function displaySuggestions(suggestions) {
+        const suggestionsContainer = document.getElementById("autocomplete-suggestions");
+        suggestionsContainer.innerHTML = "";
+        suggestionsContainer.classList.add("show");
+
+        suggestions.forEach(suggestion => {
+            const div = document.createElement("div");
+            div.textContent = suggestion;
+            div.addEventListener("click", () => {
+                document.getElementById("location").value = suggestion;
+                suggestionsContainer.classList.remove("show");
             });
-        })
-        .catch((error) => {
-            console.error('Error fetching reports:', error);
+            suggestionsContainer.appendChild(div);
         });
     }
 
-    // Fetch reports on page load
+    // Hide suggestions when the input loses focus
+    document.getElementById("location").addEventListener("blur", () => {
+        setTimeout(() => {
+            document.getElementById("autocomplete-suggestions").classList.remove("show");
+        }, 100);
+    });
+
+    document.getElementById("incident-form").addEventListener("submit", function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        const location = document.getElementById("location").value;
+        const description = document.getElementById("description").value;
+        const severity = document.getElementById("severity_level").value;
+        const imageUrl = document.getElementById("image_url").value;
+
+        // Create an incident report object
+        const incident = {
+            location,
+            description,
+            severity,
+            imageUrl
+        };
+
+        // Add the incident report to the array
+        incidentReports.push(incident);
+
+        // Display the updated list of reports
+        displayReports();
+
+        // Reset the form fields
+        this.reset();
+    });
+
+    function displayReports() {
+        const incidentList = document.getElementById("incident-list");
+        incidentList.innerHTML = ""; // Clear existing reports
+
+        incidentReports.forEach((report, index) => {
+            const reportDiv = document.createElement("div");
+            reportDiv.className = "report";
+            reportDiv.innerHTML = `
+                <strong>Incident ${index + 1}</strong><br>
+                <strong>Location:</strong> ${report.location}<br>
+                <strong>Description:</strong> ${report.description}<br>
+                <strong>Severity Level:</strong> ${report.severity}<br>
+                ${report.imageUrl ? `<strong>Image:</strong> <img src="${report.imageUrl}" alt="Incident Image" style="max-width: 100%; border-radius: 6px; margin-top: 5px;">` : ''}
+                <hr>
+            `;
+            incidentList.appendChild(reportDiv);
+        });
+    }
+
     window.onload = fetchReports;
 </script>
-
 </body>
 </html>
