@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,6 +8,7 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
 </head>
+
 <body class="bg-gray-50">
     <!-- Navigation -->
     <nav class="bg-blue-600 text-white shadow-lg fixed w-full z-50">
@@ -23,6 +25,15 @@
                     <a href="index.html" class="bg-red-500 hover:bg-red-600 px-4 py-2 rounded-lg font-semibold text-white">
                         Report Emergency
                     </a>
+                </div>
+                <!-- User Profile Section -->
+                <div class="relative profile ml-6">
+                    <div class="flex items-center cursor-pointer">
+                        <a href="profile.html">
+                            <img src="path/to/default-profile.png" alt="User Profile" class="w-8 h-8 rounded-full border-2 border-white">
+                        </a>
+                        <span class="ml-2">Username</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -49,7 +60,7 @@
                     </div>
                 </div>
                 <div class="md:w-1/2 flex justify-end">
-                    <img src="../frontend/assets/emergencylast.jpg" alt="Emergency Response" class="rounded-lg shadow-xl">
+                    <img src="./assets/emergencylast.jpg" alt="Emergency Response" class="rounded-lg shadow-xl">
                 </div>
             </div>
         </div>
@@ -131,15 +142,15 @@
                     <div class="space-y-4">
                         <div class="flex items-center">
                             <i class="fas fa-users text-blue-600 mr-3"></i>
-                            <span>Trauma Support Community</span>
+                            <span>Community Support</span>
                         </div>
                         <div class="flex items-center">
                             <i class="fas fa-users text-blue-600 mr-3"></i>
-                            <span>Family Support Network</span>
+                            <span>Online Counseling</span>
                         </div>
                         <div class="flex items-center">
                             <i class="fas fa-users text-blue-600 mr-3"></i>
-                            <span>First Responder Connect</span>
+                            <span>Training Workshops</span>
                         </div>
                     </div>
                 </div>
@@ -147,22 +158,7 @@
         </div>
     </section>
 
-    <!-- Call to Action -->
-    <section class="py-16 bg-blue-600 text-white">
-        <div class="container mx-auto px-6 text-center">
-            <h2 class="text-3xl font-bold mb-6">Ready to Make a Difference?</h2>
-            <p class="text-xl mb-8">Join our community of emergency responders and concerned citizens.</p>
-            <div class="flex justify-center space-x-4">
-                <button class="bg-white text-blue-600 hover:bg-blue-50 px-8 py-3 rounded-lg font-semibold">
-                    Sign Up Now
-                </button>
-                <button class="border-2 border-white hover:bg-blue-700 px-8 py-3 rounded-lg font-semibold">
-                    Learn More
-                </button>
-            </div>
-        </div>
-    </section>
-
+    <!-- Footer -->
     <!-- Footer -->
     <footer class="bg-gray-800 text-white py-12">
         <div class="container mx-auto px-6">
@@ -174,10 +170,10 @@
                 <div>
                     <h4 class="text-lg font-semibold mb-4">Quick Links</h4>
                     <ul class="space-y-2 text-gray-400">
-                        <li><a href="#" class="hover:text-white">About Us</a></li>
-                        <li><a href="#" class="hover:text-white">Features</a></li>
-                        <li><a href="#" class="hover:text-white">Resources</a></li>
-                        <li><a href="#" class="hover:text-white">Support</a></li>
+                        <li><a href="#features" class="hover:text-white">About Us</a></li>
+                        <li><a href="#features" class="hover:text-white">Features</a></li>
+                        <li><a href="#resources" class="hover:text-white">Resources</a></li>
+                        <li><a href="#support" class="hover:text-white">Support</a></li>
                     </ul>
                 </div>
                 <div>
@@ -193,7 +189,7 @@
                     <h4 class="text-lg font-semibold mb-4">Contact</h4>
                     <ul class="space-y-2 text-gray-400">
                         <li>Emergency: 112</li>
-                        <li>Support: support@kavach.com</li>
+                        <li>Support: <a href="mailto:support@kavach.com" class="hover:text-white">support@kavach.com</a></li>
                         <li>Phone: (555) 123-4567</li>
                     </ul>
                 </div>
@@ -204,16 +200,6 @@
         </div>
     </footer>
 
-    <script>
-        // Smooth scrolling for navigation links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
 </body>
+
 </html>

@@ -1,7 +1,9 @@
 from flask import Flask, jsonify, request, send_from_directory
 import MySQLdb
 from config import config
+
 app = Flask(__name__)
+
 def create_connection():
     try:
         connection = MySQLdb.connect(
@@ -15,6 +17,7 @@ def create_connection():
     except MySQLdb.Error as e:
         print(f"Error connecting to MySQL database: {e}")
         return None
+
 def validate_incident_data(data):
     if not data:
         return None, "No data provided"
@@ -29,15 +32,17 @@ def validate_incident_data(data):
         'image_url': data.get('image_url', '').strip() or None
     }
     return clean_data, None
+
+# Route to serve reg.html as the main page
 @app.route('/')
 def home():
-    return send_from_directory('../frontend', 'homepage.html')
-@app.route('/report')
-def report():
-    return send_from_directory('../frontend', 'index.html')
+    return send_from_directory('../frontend', 'reg.html')
+
+# Static file serving
 @app.route('/<path:filename>')
 def serve_static(filename):
     return send_from_directory('../frontend', filename)
+
 @app.route('/api/report-incident', methods=['POST'])
 def report_incident():
     try:
@@ -77,6 +82,7 @@ def report_incident():
         if 'connection' in locals() and connection:
             cursor.close()
             connection.close()
+
 @app.route('/api/get-reports', methods=['GET'])
 def get_reports():
     connection = create_connection()
@@ -104,5 +110,6 @@ def get_reports():
         if connection:
             cursor.close()
             connection.close()
+
 if __name__ == '__main__':
     app.run(debug=True)
