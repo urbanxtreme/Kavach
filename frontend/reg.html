@@ -405,39 +405,43 @@
         container.classList.remove("sign-up-mode");
       });
 
-      // Handle Sign Up
-      signupForm.addEventListener("submit", (e) => {
-        e.preventDefault();
 
-        const email = document.getElementById("signup-email").value;
-        const username = document.getElementById("signup-username").value;
-        const phone = document.getElementById("signup-phone").value;
-        const password = document.getElementById("signup-password").value;
+     // Handle Sign Up
+    signupForm.addEventListener("submit", (e) => {
+      e.preventDefault();
 
-        // Store user data in localStorage
-        localStorage.setItem("userData", JSON.stringify({ email, username, phone, password }));
+      const email = document.getElementById("signup-email").value;
+      const username = document.getElementById("signup-username").value;
+      const phone = document.getElementById("signup-phone").value;
+      const password = document.getElementById("signup-password").value;
 
-        alert("Sign up successful! You can now log in.");
-        signupForm.reset();
-      });
+      // Store user data in localStorage
+      localStorage.setItem("userData", JSON.stringify({ email, username, phone, password }));
 
-      // Handle Login
-      loginForm.addEventListener("submit", (e) => {
-        e.preventDefault();
+      alert("Sign up successful! You can now log in.");
+      signupForm.reset();
+    });
 
-        const username = document.getElementById("login-username").value;
-        const password = document.getElementById("login-password").value;
 
-        // Retrieve user data from localStorage
-        const userData = JSON.parse(localStorage.getItem("userData"));
+    // Handle Login
+    loginForm.addEventListener("submit", (e) => {
+      e.preventDefault();
 
-        // Check if credentials are valid
-        if (userData && userData.username === username && userData.password === password) {
-          window.location.href = "homepage.html"; // Redirect to homepage
-        } else {
-          alert("Invalid username or password. Please try again.");
-        }
-      });
+      const username = document.getElementById("login-username").value;
+      const password = document.getElementById("login-password").value;
+
+    // Retrieve user data from localStorage
+    const userData = JSON.parse(localStorage.getItem("userData"));
+
+    // Check if credentials are valid
+    if (userData && userData.username === username && userData.password === password) {
+      localStorage.setItem("loggedIn", "true"); // Set login status
+    window.location.href = "homepage.html";     // Redirect to profile page
+     } else {
+      alert("Invalid username or password. Please try again.");
+  }
+});
+
     </script>
   </body>
 </html>

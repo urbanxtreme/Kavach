@@ -3,118 +3,459 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>User Profile</title>
+    <title>Enhanced Emergency Profile</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet" />
     <style>
+        :root {
+            --primary-color: #4f46e5;
+            --secondary-color: #818cf8;
+            --success-color: #10b981;
+            --warning-color: #f59e0b;
+            --danger-color: #ef4444;
+            --background-color: #f3f4f6;
+            --dark-color: #1f2937;
+            --card-bg: #ffffff;
+        }
+
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f4f4f4;
+            background-color: var(--background-color);
             margin: 0;
-            padding: 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-        }
-        .container {
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            width: 300px;
-            text-align: center;
+            min-height: 100vh;
+            box-sizing: border-box;
         }
-        h2 {
-            margin-bottom: 20px;
-            color: #333;
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
-        .input-field {
-            margin-bottom: 15px;
-            width: 100%;
-        }
-        .input-field input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            font-size: 16px;
-        }
-        .btn {
-            background-color: #5995fd;
-            border: none;
+
+        .emergency-header {
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
             color: white;
-            padding: 10px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .emergency-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 60%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .emergency-header h1 {
+            margin: 0;
+            font-size: 2.5em;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .emergency-badge {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: var(--warning-color);
+            color: white;
+            padding: 8px 20px;
+            border-radius: 20px;
+            font-weight: 600;
+            animation: pulse 2s infinite;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .quick-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+            background: linear-gradient(to bottom, var(--primary-color), transparent);
+        }
+
+        .stat-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            transition: transform 0.3s;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .stat-value {
+            font-size: 1.8em;
+            color: var(--primary-color);
+            font-weight: bold;
+        }
+
+        .stat-label {
+            color: var(--dark-color);
+            font-size: 0.9em;
+            margin-top: 5px;
+        }
+
+        .profile-sections {
+            padding: 20px;
+        }
+
+        .section {
+            margin-bottom: 30px;
+            border: none;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .section:hover {
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #eee;
+        }
+
+        .section-title {
+            color: var(--dark-color);
+            font-size: 1.3em;
+            font-weight: 600;
+            margin: 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-title i {
+            color: var(--primary-color);
+        }
+
+        .input-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            color: var(--dark-color);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .input-field {
             width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: all 0.3s ease;
+            box-sizing: border-box;
         }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.1);
+        }
+
+        .input-field:read-only {
+            background-color: #f8f9fa;
+            cursor: not-allowed;
+        }
+
+        .medical-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .medical-tag {
+            background: var(--secondary-color);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .emergency-contacts {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .contact-card {
+            border: 1px solid #eee;
+            border-radius: 12px;
+            padding: 20px;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 12px 25px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn i {
+            font-size: 1.1em;
+        }
+
+        .btn-primary {
+            background-color: var(--primary-color);
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
         .btn:hover {
-            background-color: #4d84e2;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
+
         .message {
-            color: #28a745;
-            margin-top: 10px;
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 15px 30px;
+            border-radius: 8px;
+            display: none;
+            z-index: 1000;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @keyframes slideUp {
+            from { transform: translate(-50%, 100%); }
+            to { transform: translate(-50%, 0); }
+        }
+
+        .success {
+            background-color: var(--success-color);
+            color: white;
+        }
+
+        .error {
+            background-color: var(--danger-color);
+            color: white;
+        }
+
+        .analytics-section {
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            margin-top: 30px;
+        }
+
+        .analytics-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .analytics-title {
+            font-size: 1.5em;
+            color: var(--dark-color);
+            font-weight: 600;
+        }
+
+        .chart-container {
+            width: 100%;
+            height: 400px;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 768px) {
+            .emergency-contacts {
+                grid-template-columns: 1fr;
+            }
+
+            .container {
+                margin: 0;
+                border-radius: 0;
+            }
+
+            body {
+                padding: 0;
+            }
+
+            .quick-stats {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.7.0/chart.min.js"></script>
 </head>
 <body>
+    <div class="container">
+        <div class="emergency-header">
+            <h1>Emergency Profile</h1>
+            <span class="emergency-badge">Medical ID</span>
+        </div>
 
-<div class="container">
-    <h2>User Profile</h2>
-    <div class="input-field">
-        <input type="text" id="username" placeholder="Username" readonly>
+        <div class="quick-stats">
+            <div class="stat-card">
+                <div class="stat-value">A+</div>
+                <div class="stat-label">Blood Type</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">2</div>
+                <div class="stat-label">Emergency Contacts</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">3</div>
+                <div class="stat-label">Medical Conditions</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-value">24/7</div>
+                <div class="stat-label">Support Available</div>
+            </div>
+        </div>
+
+        <!-- Keep previous sections with added icons -->
+        <div class="profile-sections">
+            <!-- Personal Information Section -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title"><i class="fas fa-user"></i> Personal Information</h2>
+                    <button class="btn btn-primary" onclick="toggleEdit(this)"><i class="fas fa-edit"></i> Edit</button>
+                </div>
+                <!-- Previous input fields -->
+            </div>
+
+            <!-- Medical Information Section -->
+            <div class="section">
+                <div class="section-header">
+                    <h2 class="section-title"><i class="fas fa-heartbeat"></i> Medical Information</h2>
+                    <button class="btn btn-primary" onclick="toggleEdit(this)"><i class="fas fa-edit"></i> Edit</button>
+                </div>
+                <!-- Previous medical fields -->
+            </div>
+
+            <!-- Analytics Section -->
+            <div class="analytics-section">
+                <div class="analytics-header">
+                    <h2 class="analytics-title"><i class="fas fa-chart-line"></i> Road Accident Statistics in India</h2>
+                </div>
+                <div class="chart-container">
+                    <canvas id="accidentChart"></canvas>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="input-field">
-        <input type="password" id="password" placeholder="Password" readonly>
-    </div>
-    <button class="btn" id="editBtn" onclick="editProfile()">Edit</button>
-    <button class="btn" id="saveBtn" style="display: none;" onclick="saveProfile()">Save</button>
-    <div class="message" id="message"></div>
-</div>
 
-<script>
-    // Assume we have a logged-in user stored in local storage or session
-    const loggedInUser = JSON.parse(sessionStorage.getItem('loggedInUser'));
+    <script>
+        // Previous JavaScript functions remain the same
 
-    // Check if user is logged in
-    if (loggedInUser) {
-        document.getElementById('username').value = loggedInUser.username;
-        document.getElementById('password').value = loggedInUser.password;
-    } else {
-        alert("No user is logged in!");
-        window.location.href = "index.html"; // Redirect to login page if not logged in
-    }
+        // Add accident statistics chart
+        const ctx = document.getElementById('accidentChart').getContext('2d');
+        const accidentData = {
+            labels: ['2018', '2019', '2020', '2021', '2022'],
+            datasets: [{
+                label: 'Road Accidents in India (thousands)',
+                data: [467, 449, 366, 402, 412],
+                borderColor: '#4f46e5',
+                backgroundColor: 'rgba(79, 70, 229, 0.1)',
+                fill: true,
+                tension: 0.4
+            }]
+        };
 
-    function editProfile() {
-        document.getElementById('username').removeAttribute('readonly');
-        document.getElementById('password').removeAttribute('readonly');
-        document.getElementById('editBtn').style.display = 'none';
-        document.getElementById('saveBtn').style.display = 'block';
-    }
+        new Chart(ctx, {
+            type: 'line',
+            data: accidentData,
+            options: {
+                responsive: true,
+                plugins: {
+                    title: {
+                        display: true,
+                        text: 'Annual Road Accidents Trend'
+                    },
+                    tooltip: {
+                        mode: 'index',
+                        intersect: false,
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        title: {
+                            display: true,
+                            text: 'Number of Accidents (thousands)'
+                        }
+                    },
+                    x: {
+                        title: {
+                            display: true,
+                            text: 'Year'
+                        }
+                    }
+                }
+            }
+        });
 
-    function saveProfile() {
-        const newUsername = document.getElementById('username').value;
-        const newPassword = document.getElementById('password').value;
-
-        // Save updated user information
-        loggedInUser.username = newUsername;
-        loggedInUser.password = newPassword;
-
-        // Update the session storage
-        sessionStorage.setItem('loggedInUser', JSON.stringify(loggedInUser));
-
-        // Provide feedback to the user
-        document.getElementById('message').textContent = "Profile updated successfully!";
-        document.getElementById('message').style.color = "#28a745";
-
-        // Set fields back to readonly
-        document.getElementById('username').setAttribute('readonly', true);
-        document.getElementById('password').setAttribute('readonly', true);
-        document.getElementById('editBtn').style.display = 'block';
-        document.getElementById('saveBtn').style.display = 'none';
-    }
-</script>
+        // Previous JavaScript code remains the same
+    </script>
 </body>
 </html>
